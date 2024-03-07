@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>使用监听 localstorage 进行标签间通信</div>
+  <div>使用 sessionstorage、cookie、indexDB，可以进行数据间的交换，但是却无法主动通知，需要监听者进行轮循</div>
+  <button id="post">发送通知</button>
+</body>
+
+<script>
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'success') {
+      console.log('收到通知', e.newValue, e.oldValue)
+    }
+  })
+  const el = document.getElementById('post')
+  el.addEventListener('click', (e) => {
+    console.log('发送通知')
+    localStorage.setItem('success', Math.random())
+  })
+</script>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>使用 service worker 进行标签间通信 - 兼容性较差, 11.1 之后支持</div>
+  <div>注意点: service worker 会有缓存，调试时必须将所有页签关闭后重新打开</div>
+  <button id="post">发送通知</button>
+</body>
+
+<script>
+  navigator.serviceWorker.register('./sw.js').then(() => {
+    console.log('sw 注册成功')
+  })
+  const el = document.getElementById('post')
+  el.addEventListener('click', () => {
+    console.log('发送通知')
+    navigator.serviceWorker.controller.postMessage(Math.random())
+  })
+  navigator.serviceWorker.onmessage = (e) => {
+    console.log('收到通知')
+    console.log(e)
+  }
+</script>
+
+</html>

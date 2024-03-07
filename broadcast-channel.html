@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>使用 broadcast channel 进行标签间通信，Safari 的兼容性较差，15.4 之后支持</div>
+  <button id="post">发送通知</button>
+</body>
+
+<script>
+  const channel = new BroadcastChannel('success')
+  channel.onmessage = (e) => {
+    if (e.target.name === 'success') {
+      console.log('收到通知', e.data)
+    }
+  }
+  const el = document.getElementById('post')
+  const channel1 = new BroadcastChannel('success')
+  el.addEventListener('click', (e) => {
+    console.log('发送通知')
+    channel1.postMessage(Math.random())
+  })
+</script>
+
+</html>

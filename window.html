@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>使用 window.postMessage 进行通信，此方式可以在两个不同的域名、端口之间通信</div>
+  <button id="post">发送通知</button>
+</body>
+
+<script>
+  window.addEventListener('message', (e) => {
+    if (e.origin !== 'http://127.0.0.1:3000') return
+
+    console.log('收到通信')
+  })
+
+  const el = document.getElementById('post')
+  el.addEventListener('click', (e) => {
+    console.log('发送通知')
+    const targetWindow = window.open('http://127.0.0.1:3000/window1.html')
+    targetWindow.postMessage(Math.random(), 'http://127.0.0.1:5500/window.html')
+  })
+</script>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>使用监听 websocket 进行标签间通信</div>
+  <div>需要服务端进行支持</div>
+  <button id="post">发送通知</button>
+</body>
+
+<script>
+  const socket = new WebSocket('ws://localhost:8000');
+  socket.onopen = function () {
+
+  };
+  socket.onmessage = async function (e) {
+    console.log('接收通知', await e.data.text());
+  };
+  const el = document.getElementById('post')
+  el.addEventListener('click', (e) => {
+    console.log('发送通知')
+    socket.send(Math.random());
+  })
+</script>
+
+</html>
